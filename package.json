@@ -1,0 +1,69 @@
+{
+  "name": "canteen-system",
+  "version": "1.0.0",
+  "description": "Canteen system developed by bearzu",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "rebuild": "electron-rebuild -f -w sqlite3",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "author": "Bearzu Studios",
+  "license": "ISC",
+  "devDependencies": {
+    "angular-chart.js": "^1.1.1",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1",
+    "electron-prebuilt-compile": "1.6.11",
+    "electron-rebuild": "^1.6.0",
+    "fusioncharts": "^3.12.1",
+    "jquery": "^3.2.1"
+  },
+  "dependencies": {
+    "angular": "^1.6.5",
+    "angular-chart.js": "^1.1.1",
+    "angular-datatables": "^4.1.1",
+    "angular-route": "^1.6.5",
+    "bootstrap": "^3.3.7",
+    "confirm-click": "^0.7.0",
+    "datatables.net": "^1.10.15",
+    "datatables.net-dt": "^1.10.15",
+    "electron-compile": "^6.4.1",
+    "jQuery": "^1.7.4",
+    "jquery": "^3.2.1",
+    "jsdom": "^11.1.0",
+    "knex": "^0.13.0",
+    "sqlite3": "^3.1.8"
+  },
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {},
+      "electronWinstallerConfig": {
+        "name": ""
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "Owchzzz",
+        "name": "Bearzu Studios"
+      },
+      "windowsStoreConfig": {
+        "packageName": "canteen-system.bearzu.com"
+      }
+    }
+  }
+}

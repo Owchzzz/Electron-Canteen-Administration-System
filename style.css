@@ -1,0 +1,103 @@
+body {
+  padding-top:50px;
+  padding-bottom:15px;
+  background-color:#f4f4f4;
+}
+.navbar {
+  background-color:#fafafa;
+  border-bottom:1px solid #f2efef;
+  margin-bottom:0px;
+}
+.contentpadding {
+  padding:25px;
+}
+.nopadding {
+  padding:0px !important;
+}
+.nomargin {
+  margin:0px !important;
+}
+.full-height {
+  height:95%;
+}
+.sidebar {
+  background-color:#efefef;
+  border-left:1px solid #e0dede;
+
+}
+.navbar-fixed-top {
+  margin-bottom:25px;
+}
+.lb-sm {
+  font-size:12px;
+}
+.lb-md {
+  font-size:18px;
+}
+.lb-xl {
+  font-size:24px;
+}
+[ng-click] {
+  cursor: pointer;
+}
+
+.credit {
+  color:#63ff68;
+}
+
+.debit {
+  color:#ff495c;
+}
+
+.account-information-section {
+  border:1px solid #ededed;
+  background-color:#fafafa;
+  padding:25px;
+}
+
+.transaction-history-section {
+  margin-top:25px;
+  border:1px solid #f7f7f7;
+  background-color:#fcfcfc;
+  padding:25px;
+}
+
+.whitebox {
+  background-color:white;
+  display:block;
+}
+.whitebox .wb-header {
+  background-color:#fafafa;
+  padding:15px;
+}
+.whitebox .wb-header h4 {
+  color:white;
+  font-family:'Century Gothic';
+}
+.whitebox .wb-body {
+  padding:25px;
+}
+
+.statDetail {
+  display:block;
+  border:1px solid #f7f7f7;
+  padding:0px !important;
+  margin:0px !important;
+}
+.statDetail .statHeader {
+  background-color:#ededed;
+  display:block;
+  padding:7px;
+}
+
+.statDetail .statBody {
+  padding:25px;
+}
+
+.report_client {
+  background-color:#e8e8e8;
+  border:1px solid #dbdbdb;
+  padding:25px;
+  font-size:14px;
+  margin:25px 0px;
+}

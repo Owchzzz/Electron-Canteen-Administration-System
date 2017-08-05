@@ -1,0 +1,139 @@
+<div class="row" style="padding:15px;">
+
+
+  <div class="col-xs-12">
+    <div class="pull-right">
+    <button class="btn" ng-click="changeView('overall')">Overall View</button>
+    <button class="btn" ng-click="changeView('detailed')">Detailed View</button>
+  </div>
+  <div class="clearfix"></div>
+    <div class="whitebox">
+      <div class="wb-header" style="background-color:#efefef;">
+        <h4 style="color:black;">{{reportview == 'overall' ? 'Overall' : 'Detailed'}} Statistics for {{reportDate == currentDate ? 'Today' : 'Past ' + reportDate.def.substring(1,reportDate.def.length-4) + ' Days'}}</h4>
+        <button class="btn" ng-click="changeReportDate('today')">Today</button>
+        <button class="btn" ng-click="changeReportDate('-7 day')">Past 7 Days</button>
+        <button class="btn" ng-click="changeReportDate('-30 day')">Past 30 Days</button>
+        <button class="btn" ng-click="changeReportDate('-120 day')">Past 120 Days</button>
+        <button class="btn" ng-click="changeReportDate('-365 day')">Past Year</button>
+        <button class="btn" ng-click="changeReportDate('dates')">Specify Specific Date(s)</button>
+        <div class="specificdate_search col-xs-6" ng-show="searchDates">
+          <form ng-submit="searchDatesS()">
+          <h4>Search Dates</h4>
+          <label class="form-label">From: </label>
+          <input type="text" format="yyyy-mm-dd" class="form-control" ng-model="reportDateStart" placeholder ="i.e. 2017-12-31"/>
+          <label class="form-label">To:</label>
+          <input type="text" format="yyyy-mm-dd" class="form-control" ng-model="reportDateEnd" placeholder ="i.e. 2017-12-31"/>
+          <input type="submit" class="btn btn-primary" value="search"/>
+        </form>
+        </div>
+      </div>
+      <div class="wb-body">
+        <div>
+          <span class="label label-default ">Date Today: {{ currentDate }}</span>
+          <div class="clearfix"></div>
+          <div class="row">
+            <div class="col-xs-6 statDetail">
+              <div class="statHeader" style="background-color:#ffe2e2">
+                <h4 ng-if="reportDate.type !== 'dates'">Transactions  {{reportDate == currentDate ? 'Today' : 'Past ' + reportDate.def.substring(1,reportDate.def.length-3) + ' Days'}}:</h4>
+                  <h4 ng-if="reportDate.type == 'dates'" style="font-size:14px;">Transactions  {{reportDate.sDate.toString().substring(4,16)}} to {{reportDate.eDate.toString().substring(4,16)}}:</h4>
+              </div>
+              <div class="statBody">
+                Php {{ transactions | number: 2}}
+              </div>
+            </div>
+
+            <div class="col-xs-6 statDetail" >
+              <div class="statHeader" style="background-color:#e9ffe2">
+                <h4 ng-if="reportDate.type !== 'dates'">Payments {{reportDate == currentDate ? 'Today' : 'Past ' + reportDate.def.substring(1,reportDate.def.length-3) + ' Days'}}:</h4>
+                  <h4 ng-if="reportDate.type == 'dates'" style="font-size:14px;">Payments  {{reportDate.sDate.toString().substring(4,16)}} to {{reportDate.eDate.toString().substring(4,16)}}:</h4>
+              </div>
+              <div class="statBody">
+                Php {{ sales | number: 2}}
+              </div>
+            </div>
+
+
+          </div>
+          <div class="clearfix"></div>
+
+        </div>
+
+        <div class="row" ng-if="reportview == 'detailed'">
+          <h4>Detailed Transaction Reports</h4>
+          <button class="btn btn-primary" ng-click="exportToExcel('#transactionTableDetailed')">Export to excel</button>
+          <table class="table table-bordered table-striped" id="transactionTableDetailed">
+            <tbody ng-repeat = "worker in reports">
+              <tr><th style="font-weight:bold;"><a ng-href="#!/transactions/{{worker.id}}">{{ worker.first_name }} {{worker.last_name}}</a></th></tr>
+              <tr>
+                <th></th>
+                <td>Transaction Amount</td>
+                <td>Transaction Date</td>
+              </tr>
+                <tr ng-repeat = "transaction in worker.transactions">
+                  <td></td>
+                  <td>Php {{transaction.amount | number: 2}}</td>
+                  <td>{{transaction.transaction_date}}</td>
+                </tr>
+                <tr ng-if="worker.transactions.length == 0" style="font-style:italic">
+                  <td>n/a</td>
+                  <td>n/a</td>
+                  <td>n/a</td>
+                </tr>
+                <tr style="text-align:right; font-weight:bold;">
+                  <td><i>Total: </i></td>
+                  <td>Php {{worker.transaction_total | number: 2}}</td>
+                  <td ng-if="reportDate.type !== 'dates'"><i>{{reportDate == currentDate ? '' : 'Past ' + reportDate.def.substr(1,reportDate.def.length-4)+ ' Days' }} </i></td>
+                  <td ng-if="reportDate.type == 'dates'"><i>{{reportDate.sDate.toString().substring(4,16)}} to {{reportDate.eDate.toString().substring(4,16)}} </i></td>
+                </tr>
+                <tr>
+                  <td></td>
+                    <td></td>
+                      <td></td>
+                </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="row" ng-if = "reportview == 'overall'">
+          <h1>Transactions Report</h1>
+          <button class="btn btn-primary" ng-click="exportToExcel('#transactionTableOverall')">Export to excel</button>
+          <table class="table table-bordered table-striped" id="transactionTableOverall">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th ng-if="reportDate.type !== 'dates'">Transactions {{reportDate == currentDate ? '' : 'Past ' + reportDate.def.substr(1,reportDate.def.length-4)+ ' Days' }} </th>
+                <th ng-if="reportDate.type == 'dates'">Transactions {{reportDate.sDate.toString().substring(4,16)}} to {{reportDate.eDate.toString().substring(4,16)}} </th>
+                <th>Total Remaining Balance (Overall)</th>
+                <th>Total Remaining Credit (Overall)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="worker in reports">
+                <td><a ng-href="#!/transactions/{{worker.id}}">{{ worker.first_name }} {{worker.last_name}}</a></td>
+                <td>Php {{worker.transaction_sum | number: 2}} </td>
+                <td class="{{worker.balance > 0 ? 'danger' : ''}}">Php {{worker.balance | number: 2}}</td>
+                <td class="{{worker.credit > 0 ? 'success' : ''}}">Php {{worker.credit | number: 2}}</td>
+              </tr>
+            </tbody>
+          </table>
+          <h1>Payments Report</h1>
+          <button class="btn btn-primary" ng-click="exportToExcel('#paymentTableOverall')">Export to excel</button>
+          <table class="table table-bordered table-striped" id="paymentTableOverall">
+            <thead>
+              <tr>
+                <th>Name of Client</th>
+                <th>Payments {{reportDate == currentDate ? 'Today' : 'Past ' + reportDate.def.substring(1,reportDate.def.length-3) + ' Days'}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="worker in reports">
+                <td><a ng-href="#!/transactions/{{worker.id}}">{{ worker.first_name }} {{worker.last_name}}</a></td>
+                <td class="{{worker.payment_sum > 0 ? 'success' : ''}}">Php {{worker.payment_sum | number: 2}} </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

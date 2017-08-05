@@ -1,0 +1,44 @@
+<html>
+  <head>
+
+    <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="node_modules/datatables.net-dt/css/jquery.dataTables.css"/>
+
+    <link rel="stylesheet" type="text/css" href="./style.css"/>
+
+
+  </head>
+
+  <body ng-app="canteen-app">
+    <nav class="navbar navbar-fixed-top">
+  <div class="container-fluid">
+
+    <ul class="nav navbar-nav">
+      <li><a href="#!/">Canteen System</a></li>
+      <li><a href="#!/transactions">Transactions</a></li>
+      <li><a href="#!/workers">Clients</a></li>
+      <li><a href="#!/reports">Reports</a></li>
+
+    </ul>
+    <ul class="nav navbar-nav pull-right">
+      <li><a href="#!/exit">Exit</a></li>
+    </ul>
+  </div>
+</nav>
+    <div class="container-fluid">
+      <ng-view></ng-view>
+    </div>
+
+    <script src="./node_modules/angular/angular.min.js"></script>
+    <script src="./node_modules/angular-route/angular-route.min.js"></script>
+    <script src="./node_modules/confirm-click/confirm-click.js"></script>
+    <script src="./js/Chart.min.js"></script>
+    <script src="./node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
+
+    <!-- jQuery -->
+    <script>
+      window.$ = window.jquery = require('jquery');
+      require('./main.js');
+    </script>
+  </body>
+</html>

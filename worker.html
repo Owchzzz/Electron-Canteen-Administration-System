@@ -1,0 +1,48 @@
+<div class="row" style="margin-top:25px;">
+  <div class="col-md-4">
+    <form class="form whitebox" ng-submit="UpdateClientInfo()">
+      <div class="wb-header">
+        <h2>Client Information</h2>
+      </div>
+      <div class="wb-body">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input class="form-control" type="text" ng-model="client.first_name" required/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input class="form-control" type="text" ng-model="client.last_name" required/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">ID Number</label>
+          <input class="form-control" type="text" ng-model="client.id_num"/>
+        </div>
+        <input type="submit" class="btn btn-block btn-default" value="Update" required/>
+      </div>
+    </form>
+
+  </div>
+  <div class="col-md-8">
+    <form class="form">
+      <h2>Client Transactions</h2>
+      <div class="table-responsive" style="max-height:450px;">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Amount</th>
+              <th>Date</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="transaction in transactions">
+              <td>Php {{transaction.amount | number: 2}}</td>
+              <td>{{transaction.transaction_date}}</td>
+              <td><span class="label label-danger" ng-if="transaction.payment == 0">Transaction</span><span class="label label-success" ng-if="transaction.payment == 1">Payment</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </div>
+</div>

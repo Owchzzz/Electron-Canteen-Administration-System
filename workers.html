@@ -1,0 +1,51 @@
+<div class="row" style="margin-top:25px">
+  <div class="whitebox">
+    <div class="wb-header">
+      <h1>Client Records</h1>
+    </div>
+    <div class="wb-body">
+    <div class="col-xs-8">
+
+      <input class="form-control" type="text" ng-model="searchString" placeholder="Search for customer name"/>
+      <br/>
+          <table class="table table-bordered table-striped table-hover">
+            <thead>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>ID Number</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tr ng-repeat="worker in workers | searchForClient:searchString">
+              <td>{{ worker.first_name }}</td>
+              <td>{{ worker.last_name }}</td>
+              <td>{{ worker.id_num }}</td>
+              <td><button confirmed-click="deleteClientRequest(worker.id)" ng-confirm-click="Are you sure you would like to delete this client?" class="btn btn-warning">Delete</button> <a class="btn btn-primary" ng-href="#!/workers/{{worker.id}}">View/Edit</a>
+              <a ng-href="#!/transactions/{{worker.id}}" class="btn btn-default pull-right">Go to Transactions</a></td>
+
+            </tr>
+          </table>
+        </div>
+
+        <div class="col-xs-4" style="padding:25px;background-color:#fafafa;border:1px solid #efefef;">
+          <h1>Create new Client</h1>
+          <form class="form" ng-submit="CreateClient()">
+            <div class="form-group col-md-6">
+              <label class="form-label label">First Name</label>
+              <input class="form-control " placeholder="First Name" ng-model="clientform.first_name" required/>
+            </div>
+            <div class="form-group col-md-6">
+              <label class="form-label label">Last Name</label>
+              <input class="form-control" placeholder="Last Name" ng-model="clientform.last_name" required/>
+            </div>
+            <div class="form-group">
+              <input class="form-control" placeholder="ID Number" ng-model="clientform.id_num" required/>
+            </div>
+            <input class="btn-block btn btn-primary" type="submit" value="Save"/>
+          </form>
+        </div>
+  </div>
+  <div class="clearfix" style="margin-bottom:25px;"></div>
+</div>
+</div>

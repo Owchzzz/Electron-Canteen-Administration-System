@@ -1,0 +1,66 @@
+<h4>Canteen System v1.0.0</h4>
+<div class="row">
+  <div class="col-xs-12">
+    <div class="whitebox">
+      <div class="wb-header">
+        <h2>Canteen System</h2>
+      </div>
+      <div class="wb-body">
+
+      <div ng-if="transactions.length > 0" class="col-xs-6">
+        <h4>Transaction Data for the past 7 days</h4>
+        <div class="well">
+          This Graph shows all transactional data for the past year. <br/>The Table on the right shows the most recent Transactions by order of date.<br/>
+
+        </div>
+        <canvas id="chart-line" class="chart chart-line" chart-data="transactions_chart.data"
+        chart-dataset-override="transactions_chart.datasetOverride"
+        chart-labels="transactions_chart.labels"  chart-options="transactions_chart.optionsData"
+        >
+        </canvas>
+
+      </div>
+      <div ng-if="clients.length > 0" class="col-xs-6 " >
+        <!-- If clients are available -->
+
+        <div class="row" style="margin-bottom:15px;">
+          <h4 class="pull-left">Transactions</h4>
+          <a href="#!/reports" class="btn btn-default pull-right">View full report</a>
+          <div class="clearfix"></div>
+        </div>
+          <div class="table-responsive" style="max-height:350px;">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Transaction Date</th>
+              <th>Customer ID</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+
+          <tbody ng-if="transactions.length == 0">
+            <tr>
+              <td colspan="3"><i>No Available Records for today</i></td>
+            </tr>
+          </tbody>
+
+          <tbody ng-if="transactions.length > 0">
+            <tr ng-repeat="transaction in transactions">
+              <td>{{transaction.transaction_date}}</td>
+              <td>{{transaction.account_id}}</td>
+              <td>Php {{transaction.amount | number: 2}} </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      </div>
+      <div ng-if="clients.length == 0" style="padding:15px;font-size:12px;">
+        You have not yet added clients into the system. <a ng-href="#!/workers" class="btn btn-primary lb-sm">Add clients</a>
+      </div>
+    <div class="clearfix"></div>
+    </div>
+    </div>
+  </div>
+</div>
+<i class="pull-right label label-default" style="margin-top:25px;">Software Copyright 2017 Bearzu Studios</i>

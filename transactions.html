@@ -1,0 +1,125 @@
+<div class="row">
+
+  <div class="col-md-9 nomargin full-height contentpadding">
+    <div ng-if="customer !== null">
+      <span class="pull-left lb-xl">Customer ID number: {{ customer.db.id_num }}</span>
+      <span class="pull-right lb-md">{{ customer.full_name }}</span>
+      <div class="clearfix"></div>
+      <hr/>
+      <!-- Transaction Details -->
+      <div class="row" style="margin-top:25px">
+        <div class="col-md-4">
+          <h1>Transactions</h1>
+          <h4>Add New Transaction</h4>
+          <form ng-submit="transactionSubmit(0)" class="well">
+            <div class="form-group">
+              <input class="form-control" type="number" ng-model="transactioninput.transaction" placeholder="Amount of Order" required/>
+            </div>
+            <input class="btn btn-md btn-danger" type="submit" value="Add Transaction"/>
+          </form>
+          <hr/>
+          <h4>Add Payment</h4>
+          <form ng-submit="transactionSubmit(1)" class="well">
+            <div class="form-group">
+              <input class="form-control" type="number" ng-model="transactioninput.paymentamt" placeholder="Payment amount" required/>
+            </div>
+            <input class="btn btn-md btn-success" type="submit" value="Add Payment"/>
+          </form>
+        </div>
+        <div class="col-md-7 col-md-offset-1">
+          <div class="row" style="">
+            <div class="account-information-section">
+              <h3>Account Information</h3>
+              {{activeUser.full_name}}
+              <h4>Current Balance</h4>
+              <table class="table table-bordered table-striped" style="background-color:white;">
+                <tr class="">
+                  <td><b>Total Remaining Balance</b></td>
+                  <td class="{{transactioninput.balance > 0 ? 'danger' : ''}}">Php {{transactioninput.balance | number: 2}} <span class="label label-danger pull-right">Amount Due</span></td>
+                </tr>
+                <tr>
+                  <td><b>Total Remaining Credit</b></td>
+                  <td class="{{transactioninput.credit > 0 ? 'success' : ''}}">Php {{transactioninput.credit | number: 2}} <span class="label label-warning pull-right">Credit</span></td>
+                </tr>
+              </table>
+              <hr/>
+              <h4>Total Transaction History</h4>
+              <table class="table table-bordered table-striped">
+
+                <tr class="">
+                  <td><b>Total Transactions</b></td>
+                  <td>Php {{transactioninput.totalbalance | number: 2}} <span class="label label-success pull-right">Transacted</span></td>
+                </tr>
+                <tr class="">
+                  <td><b>Total Paid</b></td>
+                  <td>Php {{transactioninput.paid | number: 2}} <span class="label label-success pull-right">Paid</span></td>
+                </tr>
+
+              </table>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="transaction-history-section">
+              <h4> Transaction History</h4>
+
+              <div class="table-responsive" style="max-height:350px;">
+                <table class="table table-bordered lb-sm">
+                  <thead>
+                    <tr>
+                      <th colspan="3">Transaction History</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="transaction in transactions">
+                      <td>Php {{transaction.amount | number: 2}} <span class="label  {{transaction.payment === 0 ? 'label-danger' : 'label-success'}} pull-right"> {{transaction.payment === 0 ? 'Transaction' : 'Payment'}}</span></td>
+                      <td>{{transaction.transaction_date}}</td>
+                      <td><button class="btn btn-xs btn-default" confirmed-click="deleteTransaction(transaction.tid)" ng-confirm-click="You are about to remove a transaction amounting to: Php {{transaction.amount}}">Delete Transaction</button>
+                    </tr>
+
+
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <div ng-if="customer == null">
+      <h4>No Customer Selected</h4>
+      <p>Please use the search bar to select a customer</p>
+    </div>
+  </div>
+  <div class="col-md-3 sidebar nomargin full-height contentpadding">
+    <div class="form-group">
+      <input class="form-control" type="text" ng-model="searchString" placeholder="Search for customer name"/>
+    </div>
+
+    <div class="form-group">
+      <table class="workers-table table table-bordered table-hover">
+        <tr ng-repeat="i in workers | searchFor:searchString">
+          <td ng-click="setActiveCustomer(i)" >{{i.full_name}}</td>
+          <td>{{i.id_num}}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div ng-if="recentWorkers.length > 0" style="margin-top:25px;padding:15px;background-color:white;border:1px solid #fefefe;">
+      <h4>Recently Selected</h4>
+      <table class="workers-table table table-bordered table-hover" style="bacground-color:white; border:1px solid #efefef; text-align:center">
+        <tr ng-repeat="i in recentWorkers track by $index">
+          <td ng-click="setActiveCustomer(i)" >{{i.full_name}}</td>
+          <td>{{i.id_num}}</td>
+        </tr>
+        <tr class="table" style="margin-top:25px" ng-if="recentWorkers.length > 0">
+          <td colspan="2" ng-click="clearSearch()">Clear Searches</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</div>
