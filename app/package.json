@@ -1,0 +1,7 @@
+{
+    "name": "CanteenSystem",
+    "description": "Canteen system developed by Bearzu.",
+    "version": "0.0.1",
+    "author": "Bearzu Studios",
+    "main": "index.js"
+}

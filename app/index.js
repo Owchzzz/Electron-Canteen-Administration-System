@@ -3,14 +3,15 @@ const { app, BrowserWindow, globalShortcut, ipcMain } = require('electron');
 const path = require('path');
 const url = require('url');
 const datatables = require('angular-datatables');
+// Check to see if app is running in development environemnt
+
 var knex = require('knex')({
   client:"sqlite3",
   connection: {
-    filename: "./canteen.db"
+    filename: "canteen.db"
   },
   useNullAsDefault: true
 });
-
 var mainWindow;
 
 app.on('ready',function(){
