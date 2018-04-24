@@ -6,7 +6,7 @@
         <h2>Canteen System</h2>
       </div>
       <div class="wb-body">
-
+        
       <div ng-if="transactions.length > 0" class="col-xs-6">
         <h4>Transaction Data for the past 7 days</h4>
         <div class="well">
@@ -54,6 +54,12 @@
           </tbody>
         </table>
       </div>
+      </div>
+      <div class="col-xs-offset-2 col-xs-4">
+        <h1>Operational Controls</h1>
+        <hr/>
+        <b><i class="fa fa-warning"></i>Warning this will remove all transaction data.</b><br/>
+        <button ng-click="clearAllData(0);" class="btn btn-danger">Remove All Transaction Data</button>
       </div>
       <div ng-if="clients.length == 0" style="padding:15px;font-size:12px;">
         You have not yet added clients into the system. <a ng-href="#!/workers" class="btn btn-primary lb-sm">Add clients</a>

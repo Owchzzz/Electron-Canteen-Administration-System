@@ -63,7 +63,7 @@
           <button class="btn btn-primary" ng-click="exportToExcel('#transactionTableDetailed')">Export to excel</button>
           <table class="table table-bordered table-striped" id="transactionTableDetailed">
             <tbody ng-repeat = "worker in reports">
-              <tr><th style="font-weight:bold;"><a ng-href="#!/transactions/{{worker.id}}">{{ worker.first_name }} {{worker.last_name}}</a></th></tr>
+              <tr><th style="font-weight:bold;"><a ng-href="#!/transactions/{{worker.id}}">ID# {{ worker.id_num }} </a></th><th>Name: {{ worker.first_name }} {{worker.last_name}}</th></tr>
               <tr>
                 <th></th>
                 <td>Transaction Amount</td>
@@ -100,6 +100,7 @@
           <table class="table table-bordered table-striped" id="transactionTableOverall">
             <thead>
               <tr>
+                <th>ID Number</th>
                 <th>Name</th>
                 <th ng-if="reportDate.type !== 'dates'">Transactions {{reportDate == currentDate ? '' : 'Past ' + reportDate.def.substr(1,reportDate.def.length-4)+ ' Days' }} </th>
                 <th ng-if="reportDate.type == 'dates'">Transactions {{reportDate.sDate.toString().substring(4,16)}} to {{reportDate.eDate.toString().substring(4,16)}} </th>
@@ -109,7 +110,7 @@
             </thead>
             <tbody>
               <tr ng-repeat="worker in reports">
-                <td><a ng-href="#!/transactions/{{worker.id}}">{{ worker.first_name }} {{worker.last_name}}</a></td>
+                <td><a ng-href="#!/transactions/{{worker.id}}">{{worker.id_num}} </a></td><td>{{ worker.first_name }} {{ worker.last_name }}</td>
                 <td>Php {{worker.transaction_sum | number: 2}} </td>
                 <td class="{{worker.balance > 0 ? 'danger' : ''}}">Php {{worker.balance | number: 2}}</td>
                 <td class="{{worker.credit > 0 ? 'success' : ''}}">Php {{worker.credit | number: 2}}</td>
@@ -121,13 +122,14 @@
           <table class="table table-bordered table-striped" id="paymentTableOverall">
             <thead>
               <tr>
-                <th>Name of Client</th>
+                <th>ID Number</th>
+                <th>Name</th>
                 <th>Payments {{reportDate == currentDate ? 'Today' : 'Past ' + reportDate.def.substring(1,reportDate.def.length-3) + ' Days'}}</th>
               </tr>
             </thead>
             <tbody>
               <tr ng-repeat="worker in reports">
-                <td><a ng-href="#!/transactions/{{worker.id}}">{{ worker.first_name }} {{worker.last_name}}</a></td>
+                <td><a ng-href="#!/transactions/{{worker.id}}">{{worker.id_num}} </td><td> {{ worker.first_name }} {{worker.last_name}}</a></td>
                 <td class="{{worker.payment_sum > 0 ? 'success' : ''}}">Php {{worker.payment_sum | number: 2}} </td>
               </tr>
             </tbody>

@@ -23,6 +23,8 @@
     "jquery": "^3.2.1"
   },
   "dependencies": {
+    "@angular/common": "^5.2.10",
+    "@angular/core": "^5.2.10",
     "angular": "^1.6.5",
     "angular-chart.js": "^1.1.1",
     "angular-datatables": "^4.1.1",
@@ -39,7 +41,6 @@
     "knex": "^0.13.0",
     "sqlite3": "^3.1.8"
   },
-
   "config": {
     "forge": {
       "make_targets": {
@@ -74,6 +75,4 @@
       }
     }
   }
-
-
 }

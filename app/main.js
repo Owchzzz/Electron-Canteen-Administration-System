@@ -448,6 +448,16 @@ app.controller('HomeController',function($scope){
 
   ipc.send('RequestHomeStats');
 
+  ipc.on('AllTransactionsCleared',function(evt, data) {
+
+    alert('You have cleared all transactions from the database. The system is now clean');
+
+    $scope.total_transactions = [];
+
+    $scope.transactions_chart.labels = [];
+    $scope.transactions_chart.data = [];
+    $scope.apply();
+  })
   ipc.on('HomeStats',function(evt, data){
 
     $scope.transactions = data.transactions;
@@ -524,6 +534,10 @@ app.controller('HomeController',function($scope){
         }
 
     };
+    $scope.clearAllData = () => {
+      if(confirm('Are you absolutely sure you want to clear all data? This will erase all existing transaction records'))
+      ipc.send('clearAllTransactionDataEverywhere')
+    }
     $scope.$apply();
   });
 });

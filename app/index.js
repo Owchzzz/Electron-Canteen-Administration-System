@@ -39,6 +39,19 @@ app.on('ready',function(){
 
 
   // IPC Functions
+
+  ipcMain.on('clearAllTransactionDataEverywhere',async function() {
+    console.log('clearing all data');
+    let result = knex("Transactions").where('id','>',0).del();
+    result.then(function(result){
+      console.log('[OPERATION WIDE] Deleted All Transaction Data');
+      let results = knex.select("*").from("Transactions");
+      results.then(function(rows){
+        mainWindow.webContents.send('AllTransactionsCleared',rows);
+      });
+    });
+    return true;
+  })
   ipcMain.on('RequestHomeStats',async function(){
     let clients = await knex.select('*').from('Workers').asCallback(async function(err, rows){
       if(err) return err;
